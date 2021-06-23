@@ -1,0 +1,22 @@
+﻿@model dynamic
+
+
+<div class="card mb-4 shadow bg-light">
+    <h2> Incomes </h2>
+    <div class="table-responsive">
+        <table class="table" align="left">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Income Date</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Remarks</th>
+                    <th scope="col">Actions</th>
+
+                </tr>
+            </thead>
+        </table>
+        <partial name="_IncomeRow" model="@Model.udpateRequest">
+    </div>
+</div>

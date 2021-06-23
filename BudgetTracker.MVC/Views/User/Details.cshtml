@@ -1,0 +1,72 @@
+﻿@model dynamic
+
+@{
+    ViewData["Title"] = "Welcome to Your Home Page";
+}
+
+
+
+<div class="card mb-4 shadow bg-light">
+    <h2> <a asp-action="Expense" asp-route-id="@Model.responseModel.Id">Expenses</a></h2>
+    <div class="table-responsive">
+        <table class="table" align="left">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Expiration Date</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Remarks</th>
+                </tr>
+                <tbody>
+                    @if (Model != null)
+                    {
+                        @foreach (var expense in Model.expense)
+                        {
+                            <tr>
+                                <th scope="col">@expense.Id</th>
+                                <th scope="col">@expense.ExpDate</th>
+                                <th scope="col">@expense.Amount</th>
+                                <th scope="col">@expense.Description</th>
+                                <th scope="col">@expense.Remarks</th>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </thead>
+        </table>
+    </div>
+    <h2> <a asp-action="Income" asp-route-id="@Model.responseModel.Id">incomes</a> </h2>
+    <div class="table-responsive">
+        <table class="table" align="right">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Income Date</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Remarks</th>
+                </tr>
+            <tbody>
+
+                @if (Model != null)
+                {
+                    @foreach (var income in Model.income)
+                    {
+                        <tr>
+                            <th scope="col">@income.Id</th>
+                            <th scope="col">@income.IncomeDate</th>
+                            <th scope="col">@income.Amount</th>
+                            <th scope="col">@income.Description</th>
+                            <th scope="col">@income.Remarks</th>
+                        </tr>
+                    }
+                }
+            </tbody>
+
+            </thead>
+        </table>
+
+       
+    </div>
+</div>

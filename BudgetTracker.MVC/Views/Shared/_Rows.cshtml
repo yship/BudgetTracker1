@@ -1,0 +1,63 @@
+﻿@using ApplicationCore.ServiceInterfaces
+@using ApplicationCore.Models
+@inject IUserService userService
+@inject ICurrentUserService cuserService
+@model dynamic 
+
+
+<div class="card mb-4 shadow bg-light">
+
+    <h2> Expenses </h2>
+    <div class="table-responsive">
+        <table class="table" align="left">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Expiration Date</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Remarks</th>
+                </tr>
+                @foreach (ExpenditureResponseModel expense in Model.expense)
+                {
+                    <tr>
+                        <th scope="col">expense.Id</th>
+                        <th scope="col">expense.ExpDate</th>
+                        <th scope="col">expense.Amount</th>
+                        <th scope="col">expense.Description</th>
+                        <th scope="col">expense.Remarks</th>
+                    </tr>
+
+                }
+
+            </thead>
+        </table>
+    </div>
+
+    <h2> Incomes </h2>
+    <div class="table-responsive">
+        <table class="table" align="right">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Income Date</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Remarks</th>
+                </tr>
+                @foreach (IncomeResponseModel income in Model.income)
+                {
+                    <tr>
+                        <th scope="col">income.Id</th>
+                        <th scope="col">income.IncomeDate</th>
+                        <th scope="col">income.Amount</th>
+                        <th scope="col">income.Description</th>
+                        <th scope="col">income.Remarks</th>
+                    </tr>
+
+                }
+
+            </thead>
+        </table>
+    </div>
+</div>

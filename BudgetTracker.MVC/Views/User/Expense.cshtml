@@ -1,0 +1,49 @@
+﻿@model dynamic
+
+
+<div class="card mb-4 shadow bg-light">
+    <h2> Expenses </h2>
+   
+    <div class="table-responsive">
+        <table class="table" align="left">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Expiration Date</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Remarks</th>
+                    <th scope="col">Actions</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.expense != null)
+                {
+
+                    @foreach (var expense in Model.expense)
+                    {
+                        <tr>
+                            <th scope="col">@expense.Id</th>
+                            <th scope="col">@expense.ExpDate</th>
+                            <th scope="col">@expense.Amount</th>
+                            <th scope="col">@expense.Description</th>
+                            <th scope="col">@expense.Remarks</th>
+                            <td>
+                                <a asp-action="UpdateExpense" asp-route-id="@expense.Id">Edit</a> |
+                                <a asp-action="Details" asp-route-id="@expense.UserId">Details</a> |
+                                <a asp-action="DeleteExpense" asp-route-id="@expense.Id">Delete</a>
+                            </td>
+                        </tr>
+                    }
+
+
+                }
+            </tbody>
+
+        </table>
+        <partial name="_CreateExpense" model="@Model.createExRequest" />
+    </div>
+</div>
+
+

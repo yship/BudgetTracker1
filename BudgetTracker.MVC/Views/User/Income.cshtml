@@ -1,0 +1,47 @@
+﻿@model dynamic
+
+
+<div class="card mb-4 shadow bg-light">
+    <h2> Incomes </h2>
+      <div class="table-responsive">
+        <table class="table" align="left">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Income Date</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Remarks</th>
+                    <th scope="col">Actions</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.income != null)
+                {
+
+                    @foreach (var income in Model.income)
+                    {
+                        <tr>
+                            <th scope="col">@income.Id</th>
+                            <th scope="col">@income.IncomeDate</th>
+                            <th scope="col">@income.Amount</th>
+                            <th scope="col">@income.Description</th>
+                            <th scope="col">@income.Remarks</th>
+                            <td>
+                                <a asp-action="UpdateIncome" asp-route-id="@income.Id">Edit</a> |
+                                <a asp-action="Details" asp-route-id="@income.UserId">Details</a> |
+                                <a asp-action="DeleteIncome" asp-route-id="@income.Id">Delete</a>
+                            </td>
+                        </tr>
+                    }
+
+
+                }
+            </tbody>
+
+        </table>
+
+        <partial name="_CreateIncome" model="@Model.createInRequest" />
+    </div>
+</div>
