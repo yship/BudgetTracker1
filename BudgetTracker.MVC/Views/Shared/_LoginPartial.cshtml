@@ -1,30 +1,33 @@
-﻿@using ApplicationCore.ServiceInterfaces;
-@model ApplicationCore.Models.UserLoginResponseModel
-
+﻿@model ApplicationCore.Models.UserLoginResponseModel
+@using ApplicationCore.ServiceInterfaces;
 @inject ICurrentUserService _CurrentUserService;
 
 
 @if (_CurrentUserService.IsAuthenticated)
 {
     // FirstName LastName and Email
-    if (Model != null)
-    {
-        <div class="navbar-collapse collapse w-100 order-3">
-            <nav class="nav nav-pills nav-fill">
-               
-                    <a class="nav-item nav-link disabled" href="#">@Model.FullName</a>
-                    <a class="nav-item nav-link disabled" href="#"> @Model.Email</a>
-                    <a class="btn btn-outline-primary" asp-controller="Account" asp-action="Logout">Logout</a>
-               
-            </nav>
-        </div>
-       
-    }
 
 
 
-    }else
-    {
+
+    <div class="navbar-collapse collapse w-100 order-3">
+        <nav class="nav nav-pills nav-fill">
+            @if (Model != null)
+            {
+                <a class="nav-item nav-link disabled" href="#">@Model.FullName</a>}
+            <a class="nav-item nav-link disabled" href="#"> @_CurrentUserService.Email</a>
+            <a class="btn btn-outline-primary" asp-controller="Account" asp-action="Logout">Logout</a>
+
+        </nav>
+    </div>
+
+
+
+
+
+}
+else
+{
     <div class="navbar-collapse collapse w-100 order-3">
         <ul class="navbar-nav ml-auto">
             <li class="nav-item pr-4">
@@ -36,4 +39,4 @@
         </ul>
 
     </div>
-    }
+}

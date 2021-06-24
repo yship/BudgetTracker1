@@ -7,7 +7,7 @@
 
 
 <div class="card mb-4 shadow bg-light">
-    <h2> <a asp-action="Expense" asp-route-id="@Model.responseModel.Id">Expenses</a></h2>
+    <h2> <a asp-action="Expense" asp-route-id="@Model.responseModel.Id" model="@Model">Expenses</a></h2>
     <div class="table-responsive">
         <table class="table" align="left">
             <thead class="thead-dark">
@@ -36,7 +36,7 @@
             </thead>
         </table>
     </div>
-    <h2> <a asp-action="Income" asp-route-id="@Model.responseModel.Id">incomes</a> </h2>
+    <h2> <a asp-action="Income" asp-route-id="@Model.responseModel.Id" model="@Model">incomes</a> </h2>
     <div class="table-responsive">
         <table class="table" align="right">
             <thead class="thead-dark">

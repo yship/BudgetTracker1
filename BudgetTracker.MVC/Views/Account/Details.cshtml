@@ -1,0 +1,13 @@
+﻿@model ApplicationCore.Models.UserLoginResponseModel
+
+@{
+    ViewData["Title"] = "Welcome to Your Home Page";
+
+}
+
+
+
+<div class="card mb-4 shadow bg-light">
+    <h2> <a asp-controller="User" asp-action="Expense" asp-route-id="@Model.Id">Expenses</a></h2>
+    <h2> <a asp-controller="User" asp-action="Income" asp-route-id="@Model.Id">incomes</a> </h2>
+</div>

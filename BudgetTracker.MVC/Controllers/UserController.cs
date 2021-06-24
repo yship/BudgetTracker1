@@ -18,7 +18,7 @@ namespace BudgetTracker.MVC.Controllers
         private readonly IUserService _userService;
         private readonly ICurrentUserService _currentUserService;
         private readonly IExpendRepository _expendRepository;
-        
+
         private readonly IIncomeRepository _incomeRepository;
         private double balance = 0;
         public dynamic mymodel = new ExpandoObject();
@@ -28,7 +28,7 @@ namespace BudgetTracker.MVC.Controllers
             _userService = userService;
             _currentUserService = currentUserService;
             _expendRepository = expendRepository;
-           // _incomeService = incomeService;
+            // _incomeService = incomeService;
             _incomeRepository = incomeRepository;
             mymodel.responseModel = null;
             mymodel.income = null;
@@ -66,7 +66,7 @@ namespace BudgetTracker.MVC.Controllers
                 Email = userResponse.Email,
                 Id = userResponse.Id,
             };
-         
+
             mymodel.expense = exmodel;
             mymodel.income = inmodel;
             mymodel.responseModel = responseModel;
@@ -80,13 +80,13 @@ namespace BudgetTracker.MVC.Controllers
             //String email = userResponse.Email;
             //var user = await _userService.GetUser(email);
             var expense_test = await _expendRepository.GetByIdAsync(1);
-            var expenses = await _expendRepository.GetAllExpense(id,30,1);
+            var expenses = await _expendRepository.GetAllExpense(id, 30, 1);
             List<ExpenditureResponseModel> exmodel = new List<ExpenditureResponseModel>();
             foreach (var expense in expenses)
             {
                 exmodel.Add(new ExpenditureResponseModel
                 {
-                   
+
                     Id = expense.Id,
                     Amount = expense.Amount,
                     Description = expense.Description,
@@ -95,7 +95,7 @@ namespace BudgetTracker.MVC.Controllers
                     UserId = expense.UserId
                 });
             }
-            
+
             return exmodel;
 
         }
@@ -119,9 +119,10 @@ namespace BudgetTracker.MVC.Controllers
 
         }
 
-        
+
         [HttpGet]
-        public async Task<IActionResult> Expense(int id) {
+        public async Task<IActionResult> Expense(int id)
+        {
             List<ExpenditureResponseModel> expenses = await this.GetExpense(id);
             ExpenditureRequestModel ExRequest = new ExpenditureRequestModel
             {
@@ -140,7 +141,8 @@ namespace BudgetTracker.MVC.Controllers
 
         [Authorize]
         [HttpGet]
-        public async Task<IActionResult> UpdateExpense(int id) {
+        public async Task<IActionResult> UpdateExpense(int id)
+        {
             // get the expense to be updated and go to a form page
             // return responsemodel
             var expense = await _expendRepository.GetByIdAsync(id);
@@ -171,8 +173,8 @@ namespace BudgetTracker.MVC.Controllers
         public async Task<IActionResult> UpdateExpense(ExpenditureRequestModel expense)
         {
             // get model and update it in db and return to expense page
-           
-           
+
+
             Expenditure expensee = new Expenditure
             {
                 Id = expense.Id,
@@ -194,14 +196,15 @@ namespace BudgetTracker.MVC.Controllers
                 Description = expensee.Description
             };
             mymodel.updateExpense = model;
-            
+
             return View("Expense", mymodel);
         }
 
         [Authorize]
         [HttpGet]
-        public async Task<IActionResult> DeleteExpense(int id) {
-            
+        public async Task<IActionResult> DeleteExpense(int id)
+        {
+
             Expenditure expense = await _expendRepository.GetByIdAsync(id);
             if (expense != null)
             {
@@ -225,7 +228,7 @@ namespace BudgetTracker.MVC.Controllers
             }
             mymodel.expense = response;
 
-            return View("Expense",mymodel);
+            return View("Expense", mymodel);
 
         }
         [Authorize]
@@ -261,7 +264,7 @@ namespace BudgetTracker.MVC.Controllers
             mymodel.expense = response;
             return View("Expense", mymodel);
         }
-       
+
         [Authorize]
         [HttpPost]
         public async Task<IActionResult> CreateIncome(IncomeRequestModel request)
@@ -275,11 +278,12 @@ namespace BudgetTracker.MVC.Controllers
                 Remarks = request.Remarks,
                 IncomeDate = (DateTime)request.IncomeDate
             };
-
+            balance += income.Amount;
             await _incomeRepository.AddAsync(income);
             List<IncomeResponseModel> response = new List<IncomeResponseModel>();
             var incomes = await _incomeRepository.GetAllIncomes(income.UserId);
-            foreach (var incomee in incomes) {
+            foreach (var incomee in incomes)
+            {
                 response.Add(new IncomeResponseModel
                 {
                     Id = incomee.Id,
@@ -288,7 +292,7 @@ namespace BudgetTracker.MVC.Controllers
                     Description = incomee.Description,
                     Remarks = incomee.Remarks,
                     IncomeDate = incomee.IncomeDate
-                }) ;
+                });
             }
             mymodel.income = response;
             return View("Income", mymodel);
@@ -309,7 +313,6 @@ namespace BudgetTracker.MVC.Controllers
             };
             mymodel.createInRequest = InRequest;
             mymodel.income = incomes;
-            ViewData["id"] = id;
             return View(mymodel);
         }
         [Authorize]
@@ -324,9 +327,9 @@ namespace BudgetTracker.MVC.Controllers
                 Id = income.Id,
                 UserId = income.UserId,
                 Amount = income.Amount,
-                IncomeDate =income.IncomeDate,
-                Remarks =income.Remarks,
-                Description=income.Description
+                IncomeDate = income.IncomeDate,
+                Remarks = income.Remarks,
+                Description = income.Description
             };
             mymodel.updateIncome = model;
             mymodel.udpateRequest = new IncomeRequestModel
@@ -338,14 +341,15 @@ namespace BudgetTracker.MVC.Controllers
                 Remarks = income.Remarks,
                 Description = income.Description
             };
-            return View("UpdateIncome",mymodel);
+            return View("UpdateIncome", mymodel);
         }
         [Authorize]
         [HttpPost]
         public async Task<IActionResult> UpdateIncome(IncomeRequestModel request)
         {
             // get model and update it in db and return to expense page
-            Income income = new Income {
+            Income income = new Income
+            {
                 Id = request.Id,
                 UserId = request.UserId,
                 Amount = request.Amount,
@@ -355,17 +359,7 @@ namespace BudgetTracker.MVC.Controllers
             };
 
             await _incomeRepository.UpdateAsync(income);
-            /*IncomeResponseModel model = new IncomeResponseModel
-            {
-                Id = income.Id,
-                UserId = income.UserId,
-                Amount = income.Amount,
-                IncomeDate = income.IncomeDate,
-                Remarks = income.Remarks,
-                Description = income.Description
-            };
-            mymodel.updateIncome = model;*/
-            return View("Income",mymodel);
+            return View("Income", mymodel);
         }
 
         [Authorize]
@@ -374,13 +368,15 @@ namespace BudgetTracker.MVC.Controllers
         {
 
             var income = await _incomeRepository.GetByIdAsync(id);
-            if (income != null) {
+            if (income != null)
+            {
                 await _incomeRepository.DeleteAsync(income);
                 balance -= income.Amount;
             }
             var incomes = await _incomeRepository.GetAllIncomes(income.UserId);
             List<IncomeResponseModel> response = new List<IncomeResponseModel>();
-            foreach (var incomee in incomes) {
+            foreach (var incomee in incomes)
+            {
                 response.Add(new IncomeResponseModel
                 {
                     Id = incomee.Id,
@@ -389,7 +385,7 @@ namespace BudgetTracker.MVC.Controllers
                     Description = incomee.Description,
                     IncomeDate = incomee.IncomeDate,
                     Remarks = incomee.Remarks
-                     
+
                 });
             }
             mymodel.income = response;

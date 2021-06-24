@@ -72,7 +72,7 @@ namespace BudgetTracker.MVC.Controllers
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
                 new ClaimsPrincipal(claimsIdentity));
             
-            return View("Index", response);
+            return View("Details", response);
         }
 
         public async Task<IActionResult> Logout()
@@ -80,7 +80,7 @@ namespace BudgetTracker.MVC.Controllers
             await HttpContext.SignOutAsync();
 
 
-            return LocalRedirect("Login");
+            return View("Login");
         }
     }
 }
