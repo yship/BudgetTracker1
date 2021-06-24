@@ -1,5 +1,5 @@
 # BudgetTracker
-This is a project in ASP.net Core web application for tracking user accounts and updating, modifying, and deleting expense and income statements for each customer. \
+This is a project in ASP.net Core web application for tracking user accounts and updating, modifying, and deleting expense and income statements for each customer. 
 ## Files Hierarchy
 `ApplicationCore` \
 `Infrastructure` \
