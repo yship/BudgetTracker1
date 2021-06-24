@@ -1,10 +1,10 @@
 # BudgetTracker
 This is a project in ASP.net Core web application for tracking user accounts and updating, modifying, and deleting expense and income statements for each customer. \
 ## Files Hierarchy
-`ApplicationCore/` \
-`Infrastructure/` \
-`BudgetTracker.NVC`  \
-`BudgetTracker.API/`  \
+`ApplicationCore` \
+`Infrastructure` \
+`BudgetTracker.NVC` \
+`BudgetTracker.API/`  
 
 ## Build Instructions
 Run `BudgetTracker.MVC` to start the application.
